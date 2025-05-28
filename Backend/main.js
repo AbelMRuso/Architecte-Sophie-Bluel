@@ -4,5 +4,33 @@
 
 const galleryContent = document.querySelector(".gallery");
 
-const works = await getWorks();
-console.log(works);
+//delete html content from .gallery
+galleryContent.innerHTML = "";
+
+//Function that will add the "works" elements to the DOM.
+async function init() {
+    //Loop to retrieve the image and title values from the works collection.
+    const works = await getWorks();
+    for (let i = 0; i < works.length; i++) {
+        const img = works[i].imageUrl;
+        const title = works[i].title;
+
+        //Creation of the figure elements which will contain the following elements: img and figcaption.
+        const worksContent = document.createElement("figure");
+        const imgContent = document.createElement("img");
+        const titleContent = document.createElement("figcaption");
+
+        //Retrieval of the src of the images and the text of each work.
+        imgContent.src = img;
+        titleContent.innerText = title;
+
+        //Integration of the images and titles into their parent container "worksContent" (figure).
+        worksContent.appendChild(imgContent);
+        worksContent.appendChild(titleContent);
+
+        //Integration of worksContent into its parent element "galleryContent" (div gallery).
+        galleryContent.appendChild(worksContent);
+    }
+}
+
+init();
