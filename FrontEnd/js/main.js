@@ -4,11 +4,8 @@
 
 const galleryContent = document.querySelector(".gallery");
 
-//delete html content from .gallery
-galleryContent.innerHTML = "";
-
 //Function that will add the "works" elements to the DOM.
-async function init() {
+async function displayWorks() {
     //Loop to retrieve the image and title values from the works collection.
     const works = await getWorks();
     for (let i = 0; i < works.length; i++) {
@@ -33,4 +30,4 @@ async function init() {
     }
 }
 
-init();
+displayWorks();
