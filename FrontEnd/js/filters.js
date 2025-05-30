@@ -20,15 +20,27 @@ async function initCategories() {
 
         categoriesContent.appendChild(categoriesButton);
     }
+    //Creation of the array to store the works.
+    let allWorks = await getWorks();
+    displayWorks(allWorks);
+
+    //Selection of the buttons inside .categories and forEach to create a click event for each of them.
     const categoryButtons = document.querySelectorAll(".categories button");
-    for (i = 0; i < categoryButtons.length; i++) {
-        categoryButtons[i].addEventListener("click", (event) => {
-            const button = event.currentTarget;
-            console.log(`has clicado en el boton con la categoria ${button.dataset.categoryId}`);
+    categoryButtons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+            //We create a variable that takes a numeric value coming from button.dataset.categoryId
+            const categoryId = parseInt(button.dataset.categoryId);
+
+            //If categoryId is equal to 0, we show all the works.
+            if (categoryId === 0) {
+                displayWorks(allWorks);
+                //In any other case, we show the filtered works by comparing work.categoryId with categoryId.
+            } else {
+                const filteredWorks = allWorks.filter((work) => work.categoryId === categoryId);
+                displayWorks(filteredWorks);
+            }
         });
-    }
+    });
 }
 
 initCategories();
-
-//Function categorie-filtres

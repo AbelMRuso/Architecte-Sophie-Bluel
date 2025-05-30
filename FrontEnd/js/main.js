@@ -5,9 +5,11 @@
 const galleryContent = document.querySelector(".gallery");
 
 //Function that will add the "works" elements to the DOM.
-async function displayWorks() {
+function displayWorks(works) {
+    //Clear the DOM elements so that when we use the filters, only the elements we need are displayed.
+    galleryContent.innerHTML = "";
+
     //Loop to retrieve the image and title values from the works collection.
-    const works = await getWorks();
     for (let i = 0; i < works.length; i++) {
         const img = works[i].imageUrl;
         const title = works[i].title;
@@ -29,5 +31,3 @@ async function displayWorks() {
         galleryContent.appendChild(worksContent);
     }
 }
-
-displayWorks();
