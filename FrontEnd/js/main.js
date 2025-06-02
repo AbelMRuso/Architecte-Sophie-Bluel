@@ -31,3 +31,9 @@ function displayWorks(works) {
         galleryContent.appendChild(worksContent);
     }
 }
+
+//Show logout if localStorage contents "token"
+const displayLogout = document.getElementById("auth-button");
+if (localStorage.getItem("token")) {
+    displayLogout.innerText = "logout";
+}
