@@ -339,3 +339,18 @@ footer nav ul {
     margin-top: 16px;
     margin-bottom: 0px;
 }
+
+.error-message {
+    color: #b00020;
+    background-color: #fddede;
+    border-left: 4px solid #b00020;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease-in-out;
+    text-align: start;
+    padding: 8px 16px;
+}
+
+.hidden {
+    display: none;
+}
