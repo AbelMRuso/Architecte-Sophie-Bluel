@@ -203,7 +203,6 @@ li:hover {
 }
 #portfolio h2 {
     text-align: center;
-    margin-bottom: 1em;
 }
 .gallery {
     width: 100%;
@@ -353,10 +352,40 @@ a {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 /* style nav links */
 nav li {
     cursor: pointer;
+}
+
+/* style edition mode */
+
+.edition-mode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    color: white;
+    background-color: black;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.modify {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+#modify-button {
+    display: flex;
+    gap: 8px;
+    height: 16px;
+    border: none;
+    background-color: #fffef8;
 }

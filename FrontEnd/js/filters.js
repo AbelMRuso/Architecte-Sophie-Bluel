@@ -20,6 +20,15 @@ async function initCategories() {
 
         categoriesContent.appendChild(categoriesButton);
     }
+
+    //fragment that hides the buttons by categories when the user has logged in
+    if (localStorage.getItem("token")) {
+        const categoryButtons = document.querySelectorAll(".categories button");
+        categoryButtons.forEach((button) => {
+            button.classList.add("hidden");
+        });
+    }
+
     //Creation of the array to store the works.
     let allWorks = await getWorks();
     displayWorks(allWorks);
