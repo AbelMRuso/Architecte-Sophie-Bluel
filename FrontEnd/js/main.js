@@ -32,6 +32,8 @@ function displayWorks(works) {
     }
 }
 
+//behaviour of the index.html tab depending on whether the user is logged in or logged out
+
 //Show logout if localStorage contents "token"
 const logButton = document.getElementById("auth-button");
 if (localStorage.getItem("token")) {
@@ -47,4 +49,16 @@ logButton.addEventListener("click", (event) => {
     } else {
         location.assign("http://127.0.0.1:5500/FrontEnd/login.html");
     }
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+    const getEditionMode = document.querySelector(".edition-mode");
+    const getModifyButton = document.getElementById("modify-button");
+
+    if (!localStorage.getItem("token")) {
+        getEditionMode.classList.add("hidden");
+        getModifyButton.classList.add("hidden");
+    }
+    console.log(getModifyButton);
+    console.log(getEditionMode);
 });
