@@ -33,7 +33,18 @@ function displayWorks(works) {
 }
 
 //Show logout if localStorage contents "token"
-const displayLogout = document.getElementById("auth-button");
+const logButton = document.getElementById("auth-button");
 if (localStorage.getItem("token")) {
-    displayLogout.innerText = "logout";
+    logButton.innerText = "logout";
 }
+
+//if we have a token and click on logout, we delete the token, redirect to index.html and show login, if we click on login we redirect to login.html
+logButton.addEventListener("click", (event) => {
+    if (localStorage.getItem("token")) {
+        localStorage.removeItem("token");
+        logButton.innerText = "login";
+        location.replace("http://127.0.0.1:5500/FrontEnd/index.html");
+    } else {
+        location.assign("http://127.0.0.1:5500/FrontEnd/login.html");
+    }
+});
