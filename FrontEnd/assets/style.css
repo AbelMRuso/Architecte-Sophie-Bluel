@@ -305,8 +305,9 @@ footer nav ul {
     text-align: center;
 }
 
-.form-style a {
+a {
     color: black;
+    text-decoration: none;
 }
 
 .form-group {
@@ -353,4 +354,9 @@ footer nav ul {
 
 .hidden {
     display: none;
+}
+
+/* style nav links */
+nav li {
+    cursor: pointer;
 }
