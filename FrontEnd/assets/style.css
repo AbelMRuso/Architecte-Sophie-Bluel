@@ -373,6 +373,7 @@ nav li {
     top: 0px;
     left: 0px;
     right: 0px;
+    z-index: 999;
 }
 
 .modify {
@@ -393,13 +394,22 @@ nav li {
 /* modal styles */
 
 #modal {
-    position: fixed;
-    border: #1d6154 solid;
+    position: absolute;
     background-color: white;
-    opacity: 0.7;
-    top: 50%;
+    border-radius: 16px;
+    top: 920px;
     left: 50%;
     transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 400vmax rgb(0, 0, 0, 0.6);
+}
+
+#modal .gallery {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-column-gap: 8px;
+    width: 70%;
+    margin: 32px auto;
+    padding-bottom: 64px;
+    border-bottom: solid 1px grey;
 }
 
 .modal-buttons {
@@ -418,4 +428,14 @@ nav li {
     display: flex;
     justify-content: center;
     margin: 24px 0px;
+    margin: 32px;
+}
+
+#button-modal button {
+    color: white;
+    background-color: #1d6154;
+    font-family: "Syne";
+    font-weight: 100;
+    padding: 8px 32px;
+    border-radius: 25px;
 }
