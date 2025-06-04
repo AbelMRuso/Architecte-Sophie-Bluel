@@ -75,10 +75,13 @@ async function modalWorks() {
         const imgModal = allWorks[i].imageUrl;
         const worksContent = document.createElement("figure");
         const imgContent = document.createElement("img");
+        const deleteImg = document.createElement("button");
+        deleteImg.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
 
         imgContent.src = imgModal;
         worksContent.appendChild(imgContent);
         modalContent.appendChild(worksContent);
+        worksContent.appendChild(deleteImg);
     }
 }
 
