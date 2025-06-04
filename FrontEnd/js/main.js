@@ -61,6 +61,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
 //*****behaviour of the modal window */
 
+//función para mostrar las imágenes dentro de la modal
+
 async function modalWorks() {
     //array con todos los trabajos
     let allWorks = await getWorks();
