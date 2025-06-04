@@ -389,3 +389,33 @@ nav li {
     border: none;
     background-color: #fffef8;
 }
+
+/* modal styles */
+
+#modal {
+    position: fixed;
+    border: #1d6154 solid;
+    background-color: white;
+    opacity: 0.7;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: end;
+    margin: 16px 16px;
+}
+
+.tittle-modal {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+#button-modal {
+    display: flex;
+    justify-content: center;
+    margin: 24px 0px;
+}

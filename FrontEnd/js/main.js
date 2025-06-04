@@ -1,6 +1,4 @@
-// "File dedicated to retrieving elements from the server and integrating them into the DOM."
-
-// Function to retrieve the "work" elements from the server and insert them into the DOM.
+// ***** Function to retrieve the "work" elements from the server and insert them into the DOM.
 
 const galleryContent = document.querySelector(".gallery");
 
@@ -32,7 +30,7 @@ function displayWorks(works) {
     }
 }
 
-//behaviour of the index.html tab depending on whether the user is logged in or logged out
+// **** behaviour of the index.html tab depending on whether the user is logged in or logged out
 
 //Show logout if localStorage contents "token"
 const logButton = document.getElementById("auth-button");
@@ -59,6 +57,26 @@ window.addEventListener("DOMContentLoaded", () => {
         getEditionMode.classList.add("hidden");
         getModifyButton.classList.add("hidden");
     }
-    console.log(getModifyButton);
-    console.log(getEditionMode);
 });
+
+//*****behaviour of the modal window */
+
+async function modalWorks() {
+    //array con todos los trabajos
+    let allWorks = await getWorks();
+
+    //contenedor padre + contenedoes para imágen + creación de imágenes
+    const modalContent = document.getElementById("modal-images");
+
+    for (let i = 0; i < allWorks.length; i++) {
+        const imgModal = allWorks[i].imageUrl;
+        const worksContent = document.createElement("figure");
+        const imgContent = document.createElement("img");
+
+        imgContent.src = imgModal;
+        worksContent.appendChild(imgContent);
+        modalContent.appendChild(worksContent);
+    }
+}
+
+modalWorks();
