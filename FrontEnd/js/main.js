@@ -86,3 +86,11 @@ async function modalWorks() {
 }
 
 modalWorks();
+
+//closes the modal by clicking on the button
+const modalDiv = document.getElementById("modal");
+const closeModal = document.getElementById("close-modal");
+
+closeModal.addEventListener("click", () => {
+    modalDiv.classList.add("hidden");
+});
