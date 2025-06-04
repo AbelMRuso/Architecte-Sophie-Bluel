@@ -49,6 +49,7 @@ logButton.addEventListener("click", (event) => {
     }
 });
 
+//without token, the .edition-mode div and the modify button that will open the modal are not shown.
 window.addEventListener("DOMContentLoaded", () => {
     const getEditionMode = document.querySelector(".edition-mode");
     const getModifyButton = document.getElementById("modify-button");
@@ -61,7 +62,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 //*****behaviour of the modal window */
 
-//función para mostrar las imágenes dentro de la modal
+//function to display images inside the modal
 
 async function modalWorks() {
     //array con todos los trabajos
