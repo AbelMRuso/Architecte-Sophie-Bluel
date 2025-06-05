@@ -409,13 +409,33 @@ nav li {
     width: 70%;
     margin: 32px auto;
     padding-bottom: 64px;
-    border-bottom: solid 1px grey;
+    border-bottom: solid 1px #b3b3b3;
 }
 
 .modal-buttons {
     display: flex;
+    justify-content: space-between;
+    border: none;
+    margin: 24px;
+}
+
+.modal-buttons button {
+    border: none;
+    background-color: white;
+    font-size: 20px;
+}
+
+.add-photo {
+    display: flex;
     justify-content: end;
-    margin: 16px 16px;
+    border: none;
+    margin: 24px;
+}
+
+.add-photo button {
+    border: none;
+    background-color: white;
+    font-size: 20px;
 }
 
 .tittle-modal {
@@ -429,6 +449,10 @@ nav li {
     justify-content: center;
     margin: 24px 0px;
     margin: 32px;
+}
+
+#button-modal .valider {
+    background-color: #a7a7a7;
 }
 
 #button-modal :hover {

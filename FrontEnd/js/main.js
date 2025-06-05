@@ -87,6 +87,11 @@ async function modalWorks() {
 
 modalWorks();
 
+const modifyButton = document.getElementById("modify-button");
+modifyButton.addEventListener("click", () => {
+    modalDiv.classList.remove("hidden");
+});
+
 //closes the modal by clicking on the button
 const modalDiv = document.getElementById("modal");
 const closeModal = document.getElementById("close-modal");
@@ -94,3 +99,14 @@ const closeModal = document.getElementById("close-modal");
 closeModal.addEventListener("click", () => {
     modalDiv.classList.add("hidden");
 });
+
+//hide the back-button from modal
+const backButton = document.getElementById("back-button");
+backButton.classList.add("hidden");
+
+//Apply the correct class to modal-buttons when backButton is hidden
+const modalButtons = document.querySelector(".modal-buttons");
+if (backButton.classList.contains("hidden")) {
+    modalButtons.classList.remove("modal-buttons");
+    modalButtons.classList.add("add-photo");
+}
