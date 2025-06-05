@@ -87,6 +87,7 @@ async function modalWorks() {
 
 modalWorks();
 
+//show modal when click to modify
 const modifyButton = document.getElementById("modify-button");
 modifyButton.addEventListener("click", () => {
     modalDiv.classList.remove("hidden");

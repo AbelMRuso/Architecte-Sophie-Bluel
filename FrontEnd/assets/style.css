@@ -401,6 +401,8 @@ nav li {
     left: 50%;
     transform: translate(-50%, -50%);
     box-shadow: 0 0 0 400vmax rgb(0, 0, 0, 0.6);
+    width: 732.5px;
+    height: 731.516px;
 }
 
 #modal .gallery {
@@ -481,4 +483,44 @@ nav li {
     color: white;
     background-color: black;
     border-radius: 4px;
+}
+
+/* MODAL AÑADIR FOTO */
+#add-photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+    height: 50%;
+    margin: 32px auto;
+    padding-bottom: 64px;
+    border-bottom: solid 1px #b3b3b3;
+}
+
+#select-file {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 512.75px;
+    height: 200px;
+    background-color: #e8f1f6;
+}
+
+#select-file i {
+    color: #b9c5cc;
+    font-size: 80px;
+    margin: 16px;
+}
+
+#select-file label {
+    display: flex;
+    align-items: center;
+    color: #e8f1f6;
+    background-color: #b9c5cc;
+    border-radius: 20px;
+    height: 24px;
+    padding: 8px 24px;
+    margin-bottom: 8px;
 }
