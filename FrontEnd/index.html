@@ -93,13 +93,13 @@
                 <h2>Galerie photo</h2>
             </div>
 
-            <div id="modal-images" class="gallery hidden"></div>
+            <div id="modal-images" class="gallery"></div>
 
             <!-- modal add photo -->
-            <div id="add-photo" class="">
+            <div id="add-photo" class="hidden">
                 <form action="#" method="post">
                     <div id="select-file">
-                        <i class="fa-solid fa-image"></i>
+                        <i class="fa-regular fa-image"></i>
                         <label for="div-photo">+ Ajouter photo</label>
                         <input type="file" class="hidden" id="div-photo" accept=".jpg, .png" />
                         <p>jpg, png : 4mo max</p>
@@ -115,14 +115,14 @@
                             <option value="2">piruletas</option>
                             <option value="3">lacasitos</option>
                         </select>
+                        <i class="fa-solid fa-chevron-down"></i>
                     </div>
                 </form>
             </div>
             <div id="button-modal">
-                <button>Ajouter une photo</button>
+                <button class="ajouter">Ajouter une photo</button>
             </div>
         </div>
-
         <script src="../FrontEnd/js/api.js"></script>
         <script src="../FrontEnd/js/main.js"></script>
         <script src="../FrontEnd/js/filters.js"></script>

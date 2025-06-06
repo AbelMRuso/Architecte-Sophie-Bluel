@@ -87,12 +87,6 @@ async function modalWorks() {
 
 modalWorks();
 
-//show modal when click to modify
-const modifyButton = document.getElementById("modify-button");
-modifyButton.addEventListener("click", () => {
-    modalDiv.classList.remove("hidden");
-});
-
 //closes the modal by clicking on the button
 const modalDiv = document.getElementById("modal");
 const closeModal = document.getElementById("close-modal");
@@ -101,13 +95,48 @@ closeModal.addEventListener("click", () => {
     modalDiv.classList.add("hidden");
 });
 
+//modal is hidden
+modalDiv.classList.add("hidden");
+
+//show modal when click to modify
+const modifyButton = document.getElementById("modify-button");
+modifyButton.addEventListener("click", () => {
+    modalDiv.classList.remove("hidden");
+});
+
 //hide the back-button from modal
 const backButton = document.getElementById("back-button");
 backButton.classList.add("hidden");
 
+// go back with back-button
+backButton.addEventListener("click", () => {
+    formPhoto.classList.add("hidden");
+    modalImages.classList.remove("hidden");
+});
+
 //Apply the correct class to modal-buttons when backButton is hidden
 const modalButtons = document.querySelector(".modal-buttons");
 if (backButton.classList.contains("hidden")) {
-    modalButtons.classList.remove("modal-buttons");
-    modalButtons.classList.add("add-photo");
+    modalButtons.classList.add("back-close-buttons");
 }
+
+//go to "ajout photo" inside modal by clicking the button "ajouter une photo"
+const buttonModal = document.getElementById("button-modal");
+const titleModal = document.querySelector(".tittle-modal h2");
+const formPhoto = document.getElementById("add-photo");
+const modalImages = document.getElementById("modal-images");
+
+buttonModal.addEventListener("click", () => {
+    //We hide the image gallery and show the add photo form
+    modalImages.classList.add("hidden");
+    formPhoto.classList.remove("hidden");
+    //We show the back button and apply the CSS style to separate the back and close buttons
+    backButton.classList.remove("hidden");
+    modalButtons.classList.remove("add-photo");
+    modalButtons.classList.add("modal-buttons");
+    titleModal.innerText = "Ajout photo";
+    //
+    buttonModal.classList.remove("ajouter");
+    buttonModal.classList.add("valider");
+    buttonModal.innerText = "Valider";
+});
