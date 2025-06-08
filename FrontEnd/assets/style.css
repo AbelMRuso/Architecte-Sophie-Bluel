@@ -414,7 +414,7 @@ nav li {
     border-bottom: solid 1px #b3b3b3;
 }
 
-.modal-buttons {
+.separate-buttons {
     display: flex;
     justify-content: space-between;
     border: none;
@@ -440,13 +440,13 @@ nav li {
     font-size: 20px;
 }
 
-.tittle-modal {
+.title-modal {
     display: flex;
     justify-content: center;
     margin-bottom: 16px;
 }
 
-.tittle-modal h2 {
+.title-modal h2 {
     color: black;
     font-weight: lighter;
 }
@@ -495,7 +495,7 @@ nav li {
 }
 
 /* MODAL AÑADIR FOTO */
-#add-photo {
+#modal-form {
     display: flex;
     flex-direction: column;
     align-items: center;
