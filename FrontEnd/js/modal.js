@@ -1,6 +1,4 @@
-//*****behaviour of the modal window */
-
-//function to display images inside the modal
+//function to display images
 
 async function modalWorks() {
     //array con todos los trabajos
