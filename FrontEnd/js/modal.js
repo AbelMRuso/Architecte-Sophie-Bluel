@@ -29,9 +29,10 @@ const buttonModal = document.getElementById("button-modal");
 const titleModal = document.querySelector(".title-modal h2");
 const formPhoto = document.getElementById("modal-form");
 const modalImages = document.getElementById("modal-images");
+const overlay = document.getElementById("overlay");
 
 //modal is hidden by default
-modalDiv.classList.add("hidden");
+overlay.classList.add("hidden");
 
 //show modal when click to modify
 const modifyButton = document.getElementById("modify-button");
@@ -41,15 +42,16 @@ modifyButton.addEventListener("click", () => {
 
 //close modal when click to "x"
 closeModal.addEventListener("click", () => {
-    modalDiv.classList.add("hidden");
+    overlay.classList.add("hidden");
 });
 
 // VER CON GREGORY COMO HACER QUE SE CIERRE LA MODAL AL CLICAR FUERA DE ELLA ??????????????????????
-//modalDiv.addEventListener("click", (event) => {
-//  if (modalDiv === event.target) {
-//    modalDiv.classList.add("hidden");
-//}
-//});
+
+overlay.addEventListener("click", (event) => {
+    if (event.target === overlay) {
+        overlay.classList.add("hidden");
+    }
+});
 
 //Modal views
 let currentView = "gallery";
@@ -66,7 +68,7 @@ buttonModal.addEventListener("click", () => {
 //function that handles events when the gallery is displayed in the modal.
 async function displayGalleryModal() {
     await modalWorks();
-    modalDiv.classList.remove("hidden");
+    overlay.classList.remove("hidden");
     modalButtons.classList.add("close-button");
     formPhoto.classList.add("hidden");
     modalImages.classList.remove("hidden");

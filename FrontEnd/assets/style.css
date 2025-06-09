@@ -389,4 +389,5 @@ nav li {
     height: 16px;
     border: none;
     background-color: #fffef8;
+    cursor: pointer;
 }
