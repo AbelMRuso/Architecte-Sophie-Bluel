@@ -8,9 +8,18 @@
     transform: translate(-50%, -50%);
     box-shadow: 0 0 0 400vmax rgb(0, 0, 0, 0.6);
     width: 732.5px;
-    height: 731.516px;
+    height: 740.516px;
+    background-color: white;
 }
 
+.center-modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+/* galleryModal view */
 #modal .gallery {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-column-gap: 8px;
@@ -20,6 +29,7 @@
     border-bottom: solid 1px #b3b3b3;
 }
 
+/* class to separate the ‘back’ and ‘close’ buttons at the top of the modal. */
 .separate-buttons {
     display: flex;
     justify-content: space-between;
@@ -27,20 +37,14 @@
     margin: 24px;
 }
 
-.modal-buttons button {
-    border: none;
-    background-color: white;
-    font-size: 20px;
-}
-
-.back-close-buttons {
+.close-button {
     display: flex;
     justify-content: end;
     border: none;
     margin: 24px;
 }
 
-.back-close-buttons button {
+.modal-buttons button {
     border: none;
     background-color: white;
     font-size: 20px;
@@ -58,10 +62,11 @@
 }
 
 #button-modal {
-    position: relative;
     display: flex;
     justify-content: center;
-    margin: 24px 0px;
+    min-width: 300px;
+    padding: 8px 32px;
+    border-radius: 25px;
 }
 
 .valider {
@@ -69,12 +74,10 @@
     color: white;
     font-family: "Syne";
     font-weight: 100;
-    padding: 8px 10px;
-    border-radius: 25px;
 }
 
-#button-modal :hover {
-    opacity: 0.9;
+#button-modal button:hover {
+    opacity: 0.7;
 }
 
 .ajouter {
@@ -82,8 +85,6 @@
     background-color: #1d6154;
     font-family: "Syne";
     font-weight: 100;
-    padding: 8px 32px;
-    border-radius: 25px;
 }
 
 #modal-images figure {
@@ -101,7 +102,7 @@
     border-radius: 4px;
 }
 
-/* MODAL AÑADIR FOTO */
+/* formModal view */
 #modal-form {
     display: flex;
     flex-direction: column;

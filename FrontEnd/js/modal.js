@@ -20,33 +20,41 @@ async function modalWorks() {
     }
 }
 
-//closes the modal by clicking on the button
+//retrieving DOM elements to work on events
 const modalDiv = document.getElementById("modal");
 const closeModal = document.getElementById("close-modal");
-
-closeModal.addEventListener("click", () => {
-    modalDiv.classList.add("hidden");
-});
-
-//modal is hidden
-modalDiv.classList.add("hidden");
-
-//hide the back-button from modal
 const backButton = document.getElementById("back-button");
-backButton.classList.add("hidden");
-
-//Apply the correct class to modal-buttons when backButton is hidden
 const modalButtons = document.querySelector(".modal-buttons");
-if (backButton.classList.contains("hidden")) {
-    modalButtons.classList.add("back-close-buttons");
-}
-
-//go to "ajout photo" inside modal by clicking the button "ajouter une photo"
 const buttonModal = document.getElementById("button-modal");
 const titleModal = document.querySelector(".title-modal h2");
 const formPhoto = document.getElementById("modal-form");
 const modalImages = document.getElementById("modal-images");
 
+//modal is hidden by default
+modalDiv.classList.add("hidden");
+
+//show modal when click to modify
+const modifyButton = document.getElementById("modify-button");
+modifyButton.addEventListener("click", () => {
+    displayGalleryModal();
+});
+
+//close modal when click to "x"
+closeModal.addEventListener("click", () => {
+    modalDiv.classList.add("hidden");
+});
+
+// VER CON GREGORY COMO HACER QUE SE CIERRE LA MODAL AL CLICAR FUERA DE ELLA ??????????????????????
+//modalDiv.addEventListener("click", (event) => {
+//  if (modalDiv === event.target) {
+//    modalDiv.classList.add("hidden");
+//}
+//});
+
+//Modal views
+let currentView = "gallery";
+
+//go to "ajout photo" inside modal by clicking the button "ajouter une photo"
 buttonModal.addEventListener("click", () => {
     if (currentView === "gallery") {
         displayFormModal();
@@ -55,15 +63,11 @@ buttonModal.addEventListener("click", () => {
     }
 });
 
-//CORRECCIÓN MODAL
-
-let currentView = "gallery";
-
-//Funciones según la vista
-
+//function that handles events when the gallery is displayed in the modal.
 async function displayGalleryModal() {
     await modalWorks();
     modalDiv.classList.remove("hidden");
+    modalButtons.classList.add("close-button");
     formPhoto.classList.add("hidden");
     modalImages.classList.remove("hidden");
     backButton.classList.add("hidden");
@@ -75,24 +79,20 @@ async function displayGalleryModal() {
     currentView = "gallery";
 }
 
+//function that handles events when the form is displayed in the modal.
 async function displayFormModal() {
     modalImages.classList.add("hidden");
     formPhoto.classList.remove("hidden");
     backButton.classList.remove("hidden");
+    modalButtons.classList.remove("close-button");
     modalButtons.classList.add("separate-buttons");
     titleModal.innerText = "Ajout photo";
     buttonModal.classList.remove("ajouter");
     buttonModal.classList.add("valider");
-    buttonModal.innerText = "valider";
+    buttonModal.innerText = "Valider";
 
     currentView = "form";
 }
-
-//show modal when click to modify
-const modifyButton = document.getElementById("modify-button");
-modifyButton.addEventListener("click", () => {
-    displayGalleryModal();
-});
 
 // go back with back-button
 backButton.addEventListener("click", () => {
