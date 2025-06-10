@@ -100,3 +100,37 @@ async function displayFormModal() {
 backButton.addEventListener("click", () => {
     displayGalleryModal();
 });
+
+/* INTEGRACIÓN CATEGORIAS API EN FORMULARIO DE LA MODAL */
+
+const modalForm = document.getElementById("modal-form");
+const titleFormModal = document.getElementById("title");
+const categoryFormModal = document.getElementById("category");
+let categoriesLoaded = false;
+
+categoryFormModal.addEventListener("click", () => {
+    if (!categoriesLoaded) {
+        categoriesList();
+        categoriesLoaded = true;
+    }
+});
+
+async function categoriesList() {
+    const categoriesForm = await getCategories();
+    for (let i = 0; i < categoriesForm.length; i++) {
+        const categoriesOption = categoriesForm[i].name;
+        const categoriesId = categoriesForm[i].id;
+
+        const categoryContent = document.createElement("option");
+        categoryContent.setAttribute("value", categoriesId);
+        categoryContent.textContent = categoriesOption;
+
+        categoryFormModal.appendChild(categoryContent);
+    }
+}
+
+modalForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    /* INTEGRAR LA INFORMACIÓN QUE RECUPERA Y ENVIA EL FORMULARIO */
+});
