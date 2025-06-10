@@ -1,0 +1,102 @@
+//function to display images
+
+async function modalWorks() {
+    //array con todos los trabajos
+    let allWorks = await getWorks();
+    const modalContent = document.getElementById("modal-images");
+    modalContent.innerHTML = "";
+
+    for (let i = 0; i < allWorks.length; i++) {
+        const imgModal = allWorks[i].imageUrl;
+        const worksContent = document.createElement("figure");
+        const imgContent = document.createElement("img");
+        const deleteImg = document.createElement("button");
+        deleteImg.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
+
+        imgContent.src = imgModal;
+        worksContent.appendChild(imgContent);
+        modalContent.appendChild(worksContent);
+        worksContent.appendChild(deleteImg);
+    }
+}
+
+//retrieving DOM elements to work on events
+const modalDiv = document.getElementById("modal");
+const closeModal = document.getElementById("close-modal");
+const backButton = document.getElementById("back-button");
+const modalButtons = document.querySelector(".modal-buttons");
+const buttonModal = document.getElementById("button-modal");
+const titleModal = document.querySelector(".title-modal h2");
+const formPhoto = document.getElementById("modal-form");
+const modalImages = document.getElementById("modal-images");
+const overlay = document.getElementById("overlay");
+
+//modal is hidden by default
+overlay.classList.add("hidden");
+
+//show modal when click to modify
+const modifyButton = document.getElementById("modify-button");
+modifyButton.addEventListener("click", () => {
+    displayGalleryModal();
+});
+
+//close modal when click to "x"
+closeModal.addEventListener("click", () => {
+    overlay.classList.add("hidden");
+});
+
+// VER CON GREGORY COMO HACER QUE SE CIERRE LA MODAL AL CLICAR FUERA DE ELLA ??????????????????????
+
+overlay.addEventListener("click", (event) => {
+    if (event.target === overlay) {
+        overlay.classList.add("hidden");
+    }
+});
+
+//Modal views
+let currentView = "gallery";
+
+//go to "ajout photo" inside modal by clicking the button "ajouter une photo"
+buttonModal.addEventListener("click", () => {
+    if (currentView === "gallery") {
+        displayFormModal();
+    } else {
+        // AÑADIREMOS ESTA VALIDACIÓN MÁS ADELANTE
+    }
+});
+
+//function that handles events when the gallery is displayed in the modal.
+async function displayGalleryModal() {
+    await modalWorks();
+    overlay.classList.remove("hidden");
+    modalButtons.classList.add("close-button");
+    formPhoto.classList.add("hidden");
+    modalImages.classList.remove("hidden");
+    backButton.classList.add("hidden");
+    titleModal.innerText = "Galerie photo";
+    buttonModal.classList.remove("valider");
+    buttonModal.classList.add("ajouter");
+    buttonModal.innerText = "Ajouter une photo";
+
+    currentView = "gallery";
+}
+
+//function that handles events when the form is displayed in the modal.
+async function displayFormModal() {
+    modalImages.classList.add("hidden");
+    formPhoto.classList.remove("hidden");
+    backButton.classList.remove("hidden");
+    modalButtons.classList.remove("close-button");
+    modalButtons.classList.add("separate-buttons");
+    titleModal.innerText = "Ajout photo";
+    buttonModal.classList.remove("ajouter");
+    buttonModal.classList.add("valider");
+    buttonModal.innerText = "Valider";
+
+    currentView = "form";
+}
+
+// go back with back-button
+backButton.addEventListener("click", () => {
+    displayGalleryModal();
+});

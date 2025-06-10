@@ -373,6 +373,7 @@ nav li {
     top: 0px;
     left: 0px;
     right: 0px;
+    z-index: 999;
 }
 
 .modify {
@@ -388,4 +389,5 @@ nav li {
     height: 16px;
     border: none;
     background-color: #fffef8;
+    cursor: pointer;
 }

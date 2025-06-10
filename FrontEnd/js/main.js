@@ -1,6 +1,4 @@
-// "File dedicated to retrieving elements from the server and integrating them into the DOM."
-
-// Function to retrieve the "work" elements from the server and insert them into the DOM.
+// ***** Function to retrieve the "work" elements from the server and insert them into the DOM.
 
 const galleryContent = document.querySelector(".gallery");
 
@@ -32,7 +30,7 @@ function displayWorks(works) {
     }
 }
 
-//behaviour of the index.html tab depending on whether the user is logged in or logged out
+// **** behaviour of the index.html tab depending on whether the user is logged in or logged out
 
 //Show logout if localStorage contents "token"
 const logButton = document.getElementById("auth-button");
@@ -51,6 +49,7 @@ logButton.addEventListener("click", (event) => {
     }
 });
 
+//without token, the .edition-mode div and the modify button that will open the modal are not shown.
 window.addEventListener("DOMContentLoaded", () => {
     const getEditionMode = document.querySelector(".edition-mode");
     const getModifyButton = document.getElementById("modify-button");
@@ -59,6 +58,4 @@ window.addEventListener("DOMContentLoaded", () => {
         getEditionMode.classList.add("hidden");
         getModifyButton.classList.add("hidden");
     }
-    console.log(getModifyButton);
-    console.log(getEditionMode);
 });
