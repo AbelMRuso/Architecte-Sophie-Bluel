@@ -10,7 +10,7 @@ formSubmit.addEventListener("submit", (event) => {
     const passwordValue = document.getElementById("password").value;
 
     //options for form validation to be used in the fetch function
-    const formOptions = {
+    const formOptionsLogin = {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -25,7 +25,7 @@ formSubmit.addEventListener("submit", (event) => {
     //function that retrieves the response from the api and returns it in json format
     async function loginForm() {
         try {
-            const response = await fetch("http://localhost:5678/api/users/login", formOptions);
+            const response = await fetch("http://localhost:5678/api/users/login", formOptionsLogin);
             const data = await response.json();
             if (response.ok) {
                 const stockToken = data.token;

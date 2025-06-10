@@ -129,8 +129,22 @@ async function categoriesList() {
     }
 }
 
-modalForm.addEventListener("submit", (event) => {
-    event.preventDefault();
+/* modalForm.addEventListener("submit", (event) => {
+    event.preventDefault(); */
 
-    /* INTEGRAR LA INFORMACIÓN QUE RECUPERA Y ENVIA EL FORMULARIO */
-});
+const formImg = document.getElementById("div-photo").value;
+const formTitle = document.getElementById("title").value;
+const categoryValue = categoryFormModal.value;
+
+// valor de la categoría seleccionada
+
+const formData = new FormData();
+
+formData.append("image", formImg);
+formData.append("title", formTitle);
+formData.append("category", categoryValue);
+
+const formOptionsModal = {
+    method: "post",
+    body: formData,
+};
