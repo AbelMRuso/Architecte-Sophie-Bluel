@@ -76,6 +76,8 @@ async function displayGalleryModal() {
     titleModal.innerText = "Galerie photo";
     buttonModal.classList.remove("valider");
     buttonModal.classList.add("ajouter");
+    buttonModal.setAttribute("type", "button");
+    buttonModal.removeAttribute("form");
     buttonModal.innerText = "Ajouter une photo";
 
     currentView = "gallery";
@@ -91,6 +93,9 @@ async function displayFormModal() {
     titleModal.innerText = "Ajout photo";
     buttonModal.classList.remove("ajouter");
     buttonModal.classList.add("valider");
+    buttonModal.setAttribute("type", "submit");
+    buttonModal.setAttribute("form", "modal-form");
+
     buttonModal.innerText = "Valider";
 
     currentView = "form";
@@ -129,22 +134,47 @@ async function categoriesList() {
     }
 }
 
-/* modalForm.addEventListener("submit", (event) => {
-    event.preventDefault(); */
+//creamos variable para aplicar un mensaje de error en la validación del formulario
+const messageError = document.querySelector(".error-message");
 
-const formImg = document.getElementById("div-photo").value;
-const formTitle = document.getElementById("title").value;
-const categoryValue = categoryFormModal.value;
+//Función que conecta con la api
+async function initModalForm() {
+    const response = await fetch("http://localhost:5678/api/works", formOptionsModal);
+    const data = await response.json();
 
-// valor de la categoría seleccionada
+    if (response.ok) {
+        displayWorks();
+        modalForm.reset();
+        messageError.classList.remove("message-error");
+        messageError.classList.add("confirmation-message");
+        messageError.classList.remove("hidden");
+        messageError.innerText = "Votre projet est enregistré correctement";
+    }
+}
 
-const formData = new FormData();
+modalForm.addEventListener("submit", (event) => {
+    event.preventDefault();
 
-formData.append("image", formImg);
-formData.append("title", formTitle);
-formData.append("category", categoryValue);
+    const formImg = document.getElementById("div-photo").files[0];
+    const formTitle = document.getElementById("title").value;
+    const categoryValue = categoryFormModal.value;
 
-const formOptionsModal = {
-    method: "post",
-    body: formData,
-};
+    const formData = new FormData();
+
+    formData.append("image", formImg);
+    formData.append("title", formTitle);
+    formData.append("category", categoryValue);
+
+    const formOptionsModal = {
+        method: "post",
+        body: formData,
+    };
+
+    if (!formImg || !formTitle.trim() === "" || !categoryValue) {
+        messageError.classList.remove("hidden");
+        messageError.innerText = "veuillez remplir tous les champs du formulaire";
+    } else {
+        messageError.classList.add("hidden");
+        initModalForm();
+    }
+});
