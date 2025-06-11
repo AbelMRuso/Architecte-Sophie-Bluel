@@ -152,6 +152,33 @@ async function initModalForm() {
     }
 }
 
+//MOSTRAR LA IMAGEN SELECCIONADA EN EL INPUT
+const inputFile = document.getElementById("div-photo");
+const showImg = document.getElementById("select-file");
+const preview = document.getElementById("preview");
+const iconImage = document.getElementById("icon-image");
+const addPhotoBtn = document.getElementById("add-photo-btn");
+const textAddImg = document.getElementById("text-add-img");
+
+inputFile.addEventListener("change", () => {
+    const file = inputFile.files[0];
+    iconImage.classList.add("hidden");
+    addPhotoBtn.classList.add("hidden");
+    textAddImg.classList.add("hidden");
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            preview.src = e.target.result; // Cargamos la imagen en el <img>
+            preview.classList.remove("hidden"); // Mostramos el div
+        };
+
+        reader.readAsDataURL(file); // Leemos el archivo como URL de imagen
+    }
+});
+
+//COMPORTAMIENTO DE LA PÁGINA AL HACER SUBMIT EN EL FORMULARIO
 modalForm.addEventListener("submit", (event) => {
     event.preventDefault();
 

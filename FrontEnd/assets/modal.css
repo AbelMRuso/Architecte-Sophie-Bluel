@@ -195,3 +195,9 @@
     top: 530px;
     pointer-events: none;
 }
+
+#preview {
+    width: auto;
+    height: 200px;
+    z-index: 990;
+}

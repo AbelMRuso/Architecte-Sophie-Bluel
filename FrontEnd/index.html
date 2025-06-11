@@ -102,10 +102,12 @@
                     <div id="modal-form" class="hidden">
                         <form action="#" method="post">
                             <div id="select-file">
-                                <i class="fa-regular fa-image"></i>
-                                <label for="div-photo">+ Ajouter photo</label>
+                                <img id="preview" src="" alt="Vista previa" class="hidden" />
+
+                                <i id="icon-image" class="fa-regular fa-image"></i>
+                                <label id="add-photo-btn" for="div-photo">+ Ajouter photo</label>
                                 <input type="file" class="hidden" id="div-photo" accept=".jpg, .png" />
-                                <p>jpg, png : 4mo max</p>
+                                <p id="text-add-img">jpg, png : 4mo max</p>
                             </div>
                             <div id="title-file">
                                 <label for="title">Titre</label>
