@@ -30,6 +30,7 @@ const titleModal = document.querySelector(".title-modal h2");
 const formPhoto = document.getElementById("modal-form");
 const modalImages = document.getElementById("modal-images");
 const overlay = document.getElementById("overlay");
+const inputTitle = document.getElementById("title");
 
 //modal is hidden by default
 overlay.classList.add("hidden");
@@ -43,9 +44,8 @@ modifyButton.addEventListener("click", () => {
 //close modal when click to "x"
 closeModal.addEventListener("click", () => {
     overlay.classList.add("hidden");
+    resetForm();
 });
-
-// VER CON GREGORY COMO HACER QUE SE CIERRE LA MODAL AL CLICAR FUERA DE ELLA ??????????????????????
 
 overlay.addEventListener("click", (event) => {
     if (event.target === overlay) {
@@ -104,6 +104,7 @@ async function displayFormModal() {
 // go back with back-button
 backButton.addEventListener("click", () => {
     displayGalleryModal();
+    resetForm();
 });
 
 /* INTEGRACIÓN CATEGORIAS API EN FORMULARIO DE LA MODAL */
@@ -162,20 +163,21 @@ const textAddImg = document.getElementById("text-add-img");
 
 inputFile.addEventListener("change", () => {
     const file = inputFile.files[0];
+
+    if (!file) return;
+
     iconImage.classList.add("hidden");
     addPhotoBtn.classList.add("hidden");
     textAddImg.classList.add("hidden");
 
-    if (file) {
-        const reader = new FileReader();
+    const reader = new FileReader();
 
-        reader.onload = function (e) {
-            preview.src = e.target.result; // Cargamos la imagen en el <img>
-            preview.classList.remove("hidden"); // Mostramos el div
-        };
+    reader.onload = function (e) {
+        preview.src = e.target.result; // Cargamos la imagen en el <img>
+        preview.classList.remove("hidden"); // Mostramos el div
+    };
 
-        reader.readAsDataURL(file); // Leemos el archivo como URL de imagen
-    }
+    reader.readAsDataURL(file); // Leemos el archivo como URL de imagen
 });
 
 //COMPORTAMIENTO DE LA PÁGINA AL HACER SUBMIT EN EL FORMULARIO
@@ -205,3 +207,15 @@ modalForm.addEventListener("submit", (event) => {
         initModalForm();
     }
 });
+
+//función para reiniciar el formulario
+
+function resetForm() {
+    preview.src = "";
+    inputTitle.value = "";
+    categoryFormModal.value = "";
+    preview.classList.add("hidden");
+    iconImage.classList.remove("hidden");
+    addPhotoBtn.classList.remove("hidden");
+    textAddImg.classList.remove("hidden");
+}
