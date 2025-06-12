@@ -31,6 +31,8 @@ const formPhoto = document.getElementById("modal-form");
 const modalImages = document.getElementById("modal-images");
 const overlay = document.getElementById("overlay");
 const inputTitle = document.getElementById("title");
+//creamos variable para aplicar un mensaje de error en la validación del formulario
+const messageError = document.querySelector(".error-message");
 
 //modal is hidden by default
 overlay.classList.add("hidden");
@@ -94,9 +96,10 @@ async function displayFormModal() {
     buttonModal.classList.remove("ajouter");
     buttonModal.classList.add("valider");
     buttonModal.setAttribute("type", "submit");
-    buttonModal.setAttribute("form", "modal-form");
-
+    buttonModal.setAttribute("form", "formModal");
     buttonModal.innerText = "Valider";
+    messageError.classList.add("hidden");
+    messageError.innerText = "";
 
     currentView = "form";
 }
@@ -135,17 +138,22 @@ async function categoriesList() {
     }
 }
 
-//creamos variable para aplicar un mensaje de error en la validación del formulario
-const messageError = document.querySelector(".error-message");
-
 //Función que conecta con la api
-async function initModalForm() {
+
+async function initModalForm(formOptionsModal) {
+    const token = localStorage.getItem("token");
+
+    formOptionsModal.headers = {
+        Authorization: `Bearer ${token}`,
+    };
+
     const response = await fetch("http://localhost:5678/api/works", formOptionsModal);
     const data = await response.json();
 
     if (response.ok) {
         displayWorks();
-        modalForm.reset();
+        formModal.reset();
+        resetForm();
         messageError.classList.remove("message-error");
         messageError.classList.add("confirmation-message");
         messageError.classList.remove("hidden");
@@ -180,32 +188,35 @@ inputFile.addEventListener("change", () => {
     reader.readAsDataURL(file); // Leemos el archivo como URL de imagen
 });
 
+const formModal = document.getElementById("formModal");
+
 //COMPORTAMIENTO DE LA PÁGINA AL HACER SUBMIT EN EL FORMULARIO
-modalForm.addEventListener("submit", (event) => {
+formModal.addEventListener("submit", (event) => {
     event.preventDefault();
 
     const formImg = document.getElementById("div-photo").files[0];
-    const formTitle = document.getElementById("title").value;
-    const categoryValue = categoryFormModal.value;
+    const formTitleValue = document.getElementById("title").value;
+    const categoryValue = document.getElementById("category").value;
+
+    if (!formImg || formTitleValue.trim() === "" || !categoryValue) {
+        messageError.classList.remove("hidden");
+        messageError.innerText = "veuillez remplir tous les champs du formulaire";
+        return;
+    }
+
+    messageError.classList.add("hidden");
 
     const formData = new FormData();
 
     formData.append("image", formImg);
-    formData.append("title", formTitle);
+    formData.append("title", formTitleValue);
     formData.append("category", categoryValue);
 
     const formOptionsModal = {
         method: "post",
         body: formData,
     };
-
-    if (!formImg || !formTitle.trim() === "" || !categoryValue) {
-        messageError.classList.remove("hidden");
-        messageError.innerText = "veuillez remplir tous les champs du formulaire";
-    } else {
-        messageError.classList.add("hidden");
-        initModalForm();
-    }
+    initModalForm(formOptionsModal);
 });
 
 //función para reiniciar el formulario
@@ -218,4 +229,25 @@ function resetForm() {
     iconImage.classList.remove("hidden");
     addPhotoBtn.classList.remove("hidden");
     textAddImg.classList.remove("hidden");
+    messageError.classList.add("hidden");
+    messageError.innerText = "";
+}
+
+//PELEA MAXIMA PARA QUE EL BOTON DEL FORMULARIO PUEDA VALIDARLO Y CAMBIE DE COLOR
+const formTitle = document.getElementById("title");
+
+formTitle.addEventListener("input", checkForm);
+categoryFormModal.addEventListener("change", checkForm);
+inputFile.addEventListener("change", checkForm);
+
+function checkForm() {
+    if (inputFile.files.length > 0 && formTitle.value.trim() !== "" && categoryFormModal.value !== "") {
+        buttonModal.classList.remove("valider");
+        buttonModal.classList.add("valider-green");
+        buttonModal.disabled = false;
+    } else {
+        buttonModal.classList.remove("valider-green");
+        buttonModal.classList.add("valider");
+        buttonModal.disabled = true;
+    }
 }

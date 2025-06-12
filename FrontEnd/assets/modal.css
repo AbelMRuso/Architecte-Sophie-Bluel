@@ -54,6 +54,14 @@
     margin: 24px;
 }
 
+#close-modal {
+    cursor: pointer;
+}
+
+#back-button {
+    cursor: pointer;
+}
+
 .modal-buttons button {
     border: none;
     background-color: white;
@@ -78,10 +86,18 @@
     padding: 8px 32px;
     border-radius: 25px;
     cursor: pointer;
+    border: none;
 }
 
 .valider {
     background-color: #a7a7a7;
+    color: white;
+    font-family: "Syne";
+    font-weight: 100;
+}
+
+.valider-green {
+    background-color: #1d6154;
     color: white;
     font-family: "Syne";
     font-weight: 100;
