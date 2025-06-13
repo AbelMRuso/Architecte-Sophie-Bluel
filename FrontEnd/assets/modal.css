@@ -217,3 +217,7 @@
     height: 200px;
     z-index: 990;
 }
+
+#add-photo-btn {
+    cursor: pointer;
+}
