@@ -5,7 +5,7 @@
     top: 0;
     left: 0;
     width: 100vw; /* cubre toda la pantalla horizontal */
-    height: 3520px;
+    height: 4100px;
     z-index: 998;
     background-color: rgba(0, 0, 0, 0.6); /* fondo oscuro real */
     display: flex;
@@ -54,6 +54,14 @@
     margin: 24px;
 }
 
+#close-modal {
+    cursor: pointer;
+}
+
+#back-button {
+    cursor: pointer;
+}
+
 .modal-buttons button {
     border: none;
     background-color: white;
@@ -78,10 +86,28 @@
     padding: 8px 32px;
     border-radius: 25px;
     cursor: pointer;
+    border: none;
+}
+
+#button-valider {
+    display: flex;
+    justify-content: center;
+    min-width: 300px;
+    padding: 8px 32px;
+    border-radius: 25px;
+    cursor: pointer;
+    border: none;
 }
 
 .valider {
     background-color: #a7a7a7;
+    color: white;
+    font-family: "Syne";
+    font-weight: 100;
+}
+
+.valider-green {
+    background-color: #1d6154;
     color: white;
     font-family: "Syne";
     font-weight: 100;
@@ -176,6 +202,7 @@
 #category-file {
     display: flex;
     flex-direction: column;
+    position: relative;
     gap: 8px;
     margin: 16px 0;
 }
@@ -191,7 +218,18 @@
 
 #category-file i {
     position: absolute;
-    right: 140px;
-    top: 515px;
+    right: 30px;
+    top: 40px;
     pointer-events: none;
+    box-sizing: border-box;
+}
+
+#preview {
+    width: auto;
+    height: 200px;
+    z-index: 990;
+}
+
+#add-photo-btn {
+    cursor: pointer;
 }

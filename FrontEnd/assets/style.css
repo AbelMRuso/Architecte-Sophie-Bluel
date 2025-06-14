@@ -349,6 +349,19 @@ a {
     transition: opacity 0.3s ease-in-out;
     text-align: start;
     padding: 8px 16px;
+    height: 16px;
+}
+
+.confirmation-message {
+    color: #00b01d;
+    background-color: #fddede;
+    border-left: 4px solid #00b01d;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease-in-out;
+    text-align: start;
+    padding: 8px 16px;
+    height: 10px;
 }
 
 .hidden {

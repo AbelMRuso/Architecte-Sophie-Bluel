@@ -100,12 +100,14 @@
 
                     <!-- modal add photo -->
                     <div id="modal-form" class="hidden">
-                        <form action="#" method="post">
+                        <form id="formModal" action="#" method="post">
                             <div id="select-file">
-                                <i class="fa-regular fa-image"></i>
-                                <label for="div-photo">+ Ajouter photo</label>
+                                <img id="preview" src="" alt="Vista previa" class="hidden" />
+
+                                <i id="icon-image" class="fa-regular fa-image"></i>
+                                <label id="add-photo-btn" for="div-photo">+ Ajouter photo</label>
                                 <input type="file" class="hidden" id="div-photo" accept=".jpg, .png" />
-                                <p>jpg, png : 4mo max</p>
+                                <p id="text-add-img">jpg, png : 4mo max</p>
                             </div>
                             <div id="title-file">
                                 <label for="title">Titre</label>
@@ -113,18 +115,15 @@
                             </div>
                             <div id="category-file">
                                 <label for="category">Catégorie</label>
-                                <select name="category" id="category">
-                                    <option value="1">casas</option>
-                                    <option value="2">piruletas</option>
-                                    <option value="3">lacasitos</option>
-                                </select>
+                                <select name="category" id="category"></select>
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
+                            <p class="error-message hidden"></p>
                         </form>
                     </div>
-                    <div id="button-modal">
-                        <button>Ajouter une photo</button>
-                    </div>
+
+                    <button id="button-modal">Ajouter une photo</button>
+                    <button id="button-valider" type="submit" form="formModal">Valider</button>
                 </div>
             </div>
         </div>
