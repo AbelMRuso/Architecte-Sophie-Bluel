@@ -5,7 +5,7 @@
     top: 0;
     left: 0;
     width: 100vw; /* cubre toda la pantalla horizontal */
-    height: 3520px;
+    height: 4100px;
     z-index: 998;
     background-color: rgba(0, 0, 0, 0.6); /* fondo oscuro real */
     display: flex;
@@ -80,6 +80,16 @@
 }
 
 #button-modal {
+    display: flex;
+    justify-content: center;
+    min-width: 300px;
+    padding: 8px 32px;
+    border-radius: 25px;
+    cursor: pointer;
+    border: none;
+}
+
+#button-valider {
     display: flex;
     justify-content: center;
     min-width: 300px;
@@ -192,6 +202,7 @@
 #category-file {
     display: flex;
     flex-direction: column;
+    position: relative;
     gap: 8px;
     margin: 16px 0;
 }
@@ -207,9 +218,10 @@
 
 #category-file i {
     position: absolute;
-    right: 140px;
-    top: 530px;
+    right: 30px;
+    top: 40px;
     pointer-events: none;
+    box-sizing: border-box;
 }
 
 #preview {

@@ -18,6 +18,7 @@ const addPhotoBtn = document.getElementById("add-photo-btn");
 const textAddImg = document.getElementById("text-add-img");
 const formModal = document.getElementById("formModal");
 const formTitle = document.getElementById("title");
+const buttonSubmit = document.getElementById("button-valider");
 
 //Modal views
 let currentView = "gallery";
@@ -82,7 +83,7 @@ async function initModalForm(formOptionsModal) {
     const data = await response.json();
 
     if (response.ok) {
-        displayWorks();
+        displayWorks(data);
         formModal.reset();
         resetForm();
     }
@@ -142,6 +143,7 @@ function resetForm() {
     preview.src = "";
     inputTitle.value = "";
     categoryFormModal.value = "";
+    messageError.classList.add("hidden");
     preview.classList.add("hidden");
     iconImage.classList.remove("hidden");
     addPhotoBtn.classList.remove("hidden");
@@ -155,16 +157,14 @@ inputFile.addEventListener("change", checkForm);
 
 function checkForm() {
     if (inputFile.files.length > 0 && formTitle.value.trim() !== "" && categoryFormModal.value !== "") {
-        buttonModal.classList.remove("valider");
-        buttonModal.classList.add("valider-green");
-        buttonModal.disabled = false;
+        buttonSubmit.classList.remove("valider");
+        buttonSubmit.classList.add("valider-green");
+        messageError.classList.add("hidden");
     } else {
-        buttonModal.classList.remove("valider-green");
-        buttonModal.classList.add("valider");
-        buttonModal.disabled = true;
+        buttonSubmit.classList.add("valider");
+        buttonSubmit.classList.remove("valider-green");
     }
 }
-
 //********** FUNCTIONS ********/
 
 //Función que recoge los datos de Works de la API, recorre su array y crea un elemento para cada uno de los objetos
@@ -197,11 +197,9 @@ async function displayGalleryModal() {
     modalImages.classList.remove("hidden");
     backButton.classList.add("hidden");
     titleModal.innerText = "Galerie photo";
-    buttonModal.classList.remove("valider");
-    buttonModal.classList.add("ajouter");
-    buttonModal.setAttribute("type", "button");
-    buttonModal.removeAttribute("form");
-    buttonModal.innerText = "Ajouter une photo";
+    buttonModal.classList.remove("hidden");
+    buttonModal.classList.add("valider-green");
+    buttonSubmit.classList.add("hidden");
 
     currentView = "gallery";
 }
@@ -214,11 +212,9 @@ async function displayFormModal() {
     modalButtons.classList.remove("close-button");
     modalButtons.classList.add("separate-buttons");
     titleModal.innerText = "Ajout photo";
-    buttonModal.classList.remove("ajouter");
-    buttonModal.classList.add("valider");
-    buttonModal.setAttribute("type", "submit");
-    buttonModal.setAttribute("form", "formModal");
-    buttonModal.innerText = "Valider";
+    buttonModal.classList.add("hidden");
+    buttonSubmit.classList.remove("hidden");
+    buttonSubmit.classList.add("valider");
 
     currentView = "form";
 }

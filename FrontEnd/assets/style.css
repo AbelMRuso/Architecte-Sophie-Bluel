@@ -349,6 +349,7 @@ a {
     transition: opacity 0.3s ease-in-out;
     text-align: start;
     padding: 8px 16px;
+    height: 16px;
 }
 
 .confirmation-message {
@@ -360,6 +361,7 @@ a {
     transition: opacity 0.3s ease-in-out;
     text-align: start;
     padding: 8px 16px;
+    height: 10px;
 }
 
 .hidden {
