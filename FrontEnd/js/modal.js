@@ -148,6 +148,8 @@ function resetForm() {
     iconImage.classList.remove("hidden");
     addPhotoBtn.classList.remove("hidden");
     textAddImg.classList.remove("hidden");
+    buttonSubmit.classList.remove("valider-green");
+    buttonSubmit.classList.add("valider");
 }
 
 //hacer que el boton del formulario haga submit y cambie de color cuando los 3 campos se han completado
