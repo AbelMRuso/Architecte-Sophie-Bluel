@@ -235,3 +235,20 @@ async function categoriesList() {
         categoryFormModal.appendChild(categoryContent);
     }
 }
+
+//peticion API borrar trabajos
+
+async function deleteWorks(id) {
+    const token = localStorage.getItem("token");
+
+    const deleteOptions = {
+        method: "delete",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+    let response = await fetch(`http://localhost:5678/api/works/${id}`, deleteOptions);
+    const data = await response.json();
+    return data;
+}
+deleteWorks();
