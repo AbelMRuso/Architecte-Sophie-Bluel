@@ -181,12 +181,21 @@ async function modalWorks() {
         const worksContent = document.createElement("figure");
         const imgContent = document.createElement("img");
         const deleteImg = document.createElement("button");
+
         deleteImg.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
 
         imgContent.src = imgModal;
         worksContent.appendChild(imgContent);
         modalContent.appendChild(worksContent);
         worksContent.appendChild(deleteImg);
+
+        deleteImg.addEventListener("click", () => {
+            //TRABAJANDO EN BORRAR LOS TRABAJOS DE LOS COJONES
+            const workId = allWorks[i].id;
+            worksContent.dataset.id = workId; //asignamos un id a cada figure
+            deleteWorks(workId);
+            worksContent.remove();
+        });
     }
 }
 
@@ -242,13 +251,12 @@ async function deleteWorks(id) {
     const token = localStorage.getItem("token");
 
     const deleteOptions = {
-        method: "delete",
+        method: `DELETE`,
         headers: {
             Authorization: `Bearer ${token}`,
         },
     };
-    let response = await fetch(`http://localhost:5678/api/works/${id}`, deleteOptions);
-    const data = await response.json();
-    return data;
+
+    const response = await fetch(`http://localhost:5678/api/works/${id}`, deleteOptions);
 }
 deleteWorks();
