@@ -148,6 +148,8 @@ function resetForm() {
     iconImage.classList.remove("hidden");
     addPhotoBtn.classList.remove("hidden");
     textAddImg.classList.remove("hidden");
+    buttonSubmit.classList.remove("valider-green");
+    buttonSubmit.classList.add("valider");
 }
 
 //hacer que el boton del formulario haga submit y cambie de color cuando los 3 campos se han completado
@@ -179,12 +181,21 @@ async function modalWorks() {
         const worksContent = document.createElement("figure");
         const imgContent = document.createElement("img");
         const deleteImg = document.createElement("button");
+
         deleteImg.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
 
         imgContent.src = imgModal;
         worksContent.appendChild(imgContent);
         modalContent.appendChild(worksContent);
         worksContent.appendChild(deleteImg);
+
+        deleteImg.addEventListener("click", () => {
+            //TRABAJANDO EN BORRAR LOS TRABAJOS DE LOS COJONES
+            const workId = allWorks[i].id;
+            worksContent.dataset.id = workId; //asignamos un id a cada figure
+            deleteWorks(workId);
+            worksContent.remove();
+        });
     }
 }
 
@@ -232,4 +243,19 @@ async function categoriesList() {
 
         categoryFormModal.appendChild(categoryContent);
     }
+}
+
+//peticion API borrar trabajos
+
+async function deleteWorks(id) {
+    const token = localStorage.getItem("token");
+
+    const deleteOptions = {
+        method: `DELETE`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
+    const response = await fetch(`http://localhost:5678/api/works/${id}`, deleteOptions);
 }
