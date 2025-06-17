@@ -142,7 +142,7 @@ inputFile.addEventListener("change", checkForm);
 //********** FUNCTIONS ********/
 
 function checkForm() {
-    if (inputFile.files.length > 0 && formTitle.value.trim() !== "" && categoryFormModal.value !== "") {
+    if (inputFile.files.length > 0 && formTitle.value.trim() !== "" && ["1", "2", "3"].includes(categoryFormModal.value)) {
         buttonSubmit.classList.remove("valider");
         buttonSubmit.classList.add("valider-green");
         messageError.classList.add("hidden");
@@ -152,9 +152,8 @@ function checkForm() {
     }
 }
 
-//Función que recoge los datos de Works de la API, recorre su array y crea un elemento para cada uno de los objetos
+//Function that collects the Works data from the API, traverses its array and creates an element for each of the objects.
 async function modalWorks() {
-    //array con todos los trabajos
     let allWorks = await getWorks();
     const modalContent = document.getElementById("modal-images");
     modalContent.innerHTML = "";
@@ -178,12 +177,12 @@ async function modalWorks() {
             worksContent.dataset.id = workId; //assign an id to each figure
             deleteWorks(workId);
             worksContent.remove();
+
             //confirmation message
             const deleteMessage = document.getElementById("message-delete-img");
             deleteMessage.innerText = "Le travail a été supprimé correctement";
             deleteMessage.classList.remove("hidden");
             deleteMessage.classList.add("confirmation-message");
-
             setTimeout(() => {
                 deleteMessage.classList.add("hidden");
             }, 3000);
@@ -225,6 +224,13 @@ async function displayFormModal() {
 //Función que recoge las categorías de la API, y las inserta en el section de la modal en forma de option
 async function categoriesList() {
     const categoriesForm = await getCategories();
+
+    const selectCategory = document.createElement("option");
+    selectCategory.innerText = "<-- Selectionnez une categorie -->";
+    selectCategory.value = 0;
+    selectCategory.selected = true;
+    categoryFormModal.appendChild(selectCategory);
+
     for (let i = 0; i < categoriesForm.length; i++) {
         const categoriesOption = categoriesForm[i].name;
         const categoriesId = categoriesForm[i].id;
