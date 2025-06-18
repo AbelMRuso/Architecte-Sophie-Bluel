@@ -1,13 +1,13 @@
-/* modal styles */
+/*** modal styles ***/
 
 #overlay {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw; /* cubre toda la pantalla horizontal */
+    width: 100vw;
     height: 3550px;
     z-index: 998;
-    background-color: rgba(0, 0, 0, 0.6); /* fondo oscuro real */
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,6 +68,7 @@
     font-size: 20px;
 }
 
+/* modal title styles */
 .title-modal {
     display: flex;
     justify-content: center;
@@ -79,6 +80,7 @@
     font-weight: lighter;
 }
 
+/* Button submit styles and id's */
 #button-modal {
     display: flex;
     justify-content: center;
@@ -124,6 +126,7 @@
     font-weight: 100;
 }
 
+/* Styles for gallery img inside modal */
 #modal-images {
     height: 432px;
     overflow-y: auto;
@@ -144,6 +147,7 @@
     border-radius: 4px;
 }
 
+/* Styles for form inside modal */
 /* formModal view */
 #modal-form {
     display: flex;

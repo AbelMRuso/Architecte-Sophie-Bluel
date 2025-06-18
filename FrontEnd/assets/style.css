@@ -263,7 +263,7 @@ footer nav ul {
     margin: 2em;
 }
 
-/* categories filtres styles */
+/*** styles for filters by category ***/
 
 .categories {
     display: flex;
@@ -287,7 +287,7 @@ footer nav ul {
     color: white;
 }
 
-/* formularie styles */
+/*** formularie styles for login ***/
 
 #btn-login {
     font-weight: bold;
@@ -340,6 +340,8 @@ a {
     margin-bottom: 0px;
 }
 
+/*** style for information messages  ***/
+
 .error-message {
     color: #b00020;
     background-color: #fddede;
@@ -379,7 +381,7 @@ nav li {
     cursor: pointer;
 }
 
-/* style edition mode */
+/*** style edition mode ***/
 
 .edition-mode {
     display: flex;

@@ -37,11 +37,12 @@ formSubmit.addEventListener("submit", (event) => {
             }
         } catch (error) {
             console.error("Erreur de connexion:", error);
-            messageError.textContent = "Erreur: impossible de contacter le serveur. Veuillez réessayer plus tard.";
+            messageError.textContent = "Erreur: Veuillez réessayer plus tard.";
             messageError.classList.remove("hidden");
         }
     }
     loginForm();
 });
 
-//|sophie.bluel@test.tld|S0phie|
+//mail: sophie.bluel@test.tld
+//password: S0phie
