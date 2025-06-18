@@ -116,7 +116,7 @@ formModal.addEventListener("submit", (event) => {
         method: "post",
         body: formData,
     };
-    initModalForm(formOptionsModal);
+    submitNewWork(formOptionsModal);
 });
 
 //function to form reset
@@ -185,7 +185,7 @@ async function modalWorks() {
             deleteMessage.classList.add("confirmation-message");
             setTimeout(() => {
                 deleteMessage.classList.add("hidden");
-            }, 3000);
+            }, 2000);
         });
     }
 }
@@ -245,28 +245,43 @@ async function categoriesList() {
 
 // Fetches updated works from the API with token validation.
 // If the response is successful, updates the UI using displayWorks().
-async function initModalForm(formOptionsModal) {
+async function submitNewWork(formOptionsModal) {
     const token = localStorage.getItem("token");
 
     formOptionsModal.headers = {
         Authorization: `Bearer ${token}`,
     };
+    try {
+        const response = await fetch("http://localhost:5678/api/works", formOptionsModal);
+        const data = await response.json();
 
-    const response = await fetch("http://localhost:5678/api/works", formOptionsModal);
-    const data = await response.json();
-
-    if (response.ok) {
-        displayWorks(data);
-        formModal.reset();
-        resetForm();
+        if (response.ok) {
+            displayWorks(data);
+            /* setTimeout(() => {
+            location.reload();
+        }, 2000); */ //reload page to show update displayWorks
+            formModal.reset();
+            resetForm();
+            messageError.classList.remove("hidden");
+            messageError.classList.add("confirmation-message");
+            messageError.innerText = "Le travail a été enregistré correctement";
+            setTimeout(() => {
+                messageError.classList.add("hidden");
+            }, 3000);
+        } else {
+            messageError.innerText = "Erreur lors de l'envoi du formulaire.";
+            messageError.classList.remove("hidden");
+            setTimeout(() => {
+                messageError.classList.add("hidden");
+            }, 3000);
+        }
+    } catch (error) {
+        console.error("Erreur lors de l'envoi du formulaire :", error);
         messageError.classList.remove("hidden");
-        messageError.classList.add("confirmation-message");
-        messageError.innerText = "Le travail a été enregistré correctement";
+        messageError.innerText = "Une erreur est survenue. Veuillez réessayer.";
         setTimeout(() => {
             messageError.classList.add("hidden");
         }, 3000);
-    } else {
-        alert("Erreur lors de l'envoi du formulaire.");
     }
 }
 

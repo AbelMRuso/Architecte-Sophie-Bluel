@@ -5,7 +5,7 @@
     top: 0;
     left: 0;
     width: 100vw; /* cubre toda la pantalla horizontal */
-    height: 4100px;
+    height: 3550px;
     z-index: 998;
     background-color: rgba(0, 0, 0, 0.6); /* fondo oscuro real */
     display: flex;
