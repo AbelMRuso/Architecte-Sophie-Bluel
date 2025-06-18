@@ -256,7 +256,8 @@ async function submitNewWork(formOptionsModal) {
         const data = await response.json();
 
         if (response.ok) {
-            displayWorks(data);
+            let allWorks = await getWorks();
+            displayWorks(allWorks);
             /* setTimeout(() => {
             location.reload();
         }, 2000); */ //reload page to show update displayWorks
@@ -298,4 +299,6 @@ async function deleteWorks(id) {
     };
 
     const response = await fetch(`http://localhost:5678/api/works/${id}`, deleteOptions);
+    const allWorks = await getWorks();
+    displayWorks(allWorks);
 }
