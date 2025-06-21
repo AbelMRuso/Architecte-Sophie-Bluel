@@ -1,7 +1,6 @@
-//form data recovery
-
 //We capture the form-login element, listen for the submit event, and prevent its default behavior
 const formSubmit = document.getElementById("form-login");
+
 formSubmit.addEventListener("submit", (event) => {
     event.preventDefault();
 

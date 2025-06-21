@@ -2,25 +2,21 @@
 const categoriesContent = document.querySelector(".categories");
 
 //funtion categorie-buttons
-async function initCategories() {
+async function filterCategories() {
     const categories = await getCategories();
-    //creation "tous" button
-    const tousButton = document.createElement("button");
-    tousButton.innerText = "Tous";
-    tousButton.dataset.categoryId = 0;
-    categoriesContent.appendChild(tousButton);
+    //add "tous" data to array categories
+    categories.unshift({ id: 0, name: "Tous" });
 
     //loop to get categories from array
     for (let i = 0; i < categories.length; i++) {
         const categoriesValue = categories[i].name;
+        const categoriesId = categories[i].id;
 
         const categoriesButton = document.createElement("button");
         categoriesButton.innerText = categoriesValue;
-        categoriesButton.dataset.categoryId = categories[i].id;
-
+        categoriesButton.dataset.categoryId = categoriesId; //add id category for each button, it will be usefull to filter works
         categoriesContent.appendChild(categoriesButton);
     }
-
     //fragment that hides the buttons by categories when the user has logged in
     if (localStorage.getItem("token")) {
         const categoryButtons = document.querySelectorAll(".categories button");
@@ -31,7 +27,7 @@ async function initCategories() {
 
     //Creation of the array to store the works.
     let allWorks = await getWorks();
-    displayWorks(allWorks);
+    displayWorks(allWorks); // this line show the works in index.html
 
     //Selection of the buttons inside .categories and forEach to create a click event for each of them.
     const categoryButtons = document.querySelectorAll(".categories button");
@@ -52,4 +48,4 @@ async function initCategories() {
     });
 }
 
-initCategories();
+filterCategories();

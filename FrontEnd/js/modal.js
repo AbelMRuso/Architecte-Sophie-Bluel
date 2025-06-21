@@ -253,15 +253,10 @@ async function submitNewWork(formOptionsModal) {
     };
     try {
         const response = await fetch("http://localhost:5678/api/works", formOptionsModal);
-        const data = await response.json();
 
         if (response.ok) {
             let allWorks = await getWorks();
             displayWorks(allWorks);
-            /* setTimeout(() => {
-            location.reload();
-        }, 2000); */ //reload page to show update displayWorks
-            formModal.reset();
             resetForm();
             messageError.classList.remove("hidden");
             messageError.classList.add("confirmation-message");

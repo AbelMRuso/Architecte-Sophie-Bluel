@@ -38,7 +38,7 @@ logButton.addEventListener("click", (event) => {
     if (localStorage.getItem("token")) {
         localStorage.removeItem("token");
         logButton.innerText = "login";
-        location.replace("http://127.0.0.1:5500/FrontEnd/index.html");
+        location.reload();
     } else {
         location.assign("http://127.0.0.1:5500/FrontEnd/login.html");
     }
