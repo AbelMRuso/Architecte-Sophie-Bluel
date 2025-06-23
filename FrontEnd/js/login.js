@@ -29,7 +29,7 @@ formSubmit.addEventListener("submit", (event) => {
             if (response.ok) {
                 const stockToken = data.token;
                 localStorage.setItem("token", stockToken);
-                location.replace("http://127.0.0.1:5500/FrontEnd/index.html");
+                location.replace("index.html");
             } else {
                 messageError.classList.remove("hidden");
                 messageError.textContent = "Erreur: email ou mot de passe incorrect";

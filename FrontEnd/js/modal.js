@@ -174,7 +174,6 @@ async function modalWorks() {
         //event to delete img
         deleteImg.addEventListener("click", async () => {
             const workId = allWorks[i].id;
-            worksContent.dataset.id = workId; //assign an id to each figure
 
             const success = await deleteWorks(workId);
 
