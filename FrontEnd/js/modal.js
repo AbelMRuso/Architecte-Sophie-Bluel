@@ -172,20 +172,24 @@ async function modalWorks() {
         worksContent.appendChild(deleteImg);
 
         //event to delete img
-        deleteImg.addEventListener("click", () => {
+        deleteImg.addEventListener("click", async () => {
             const workId = allWorks[i].id;
             worksContent.dataset.id = workId; //assign an id to each figure
-            deleteWorks(workId);
-            worksContent.remove();
 
-            //confirmation message
-            const deleteMessage = document.getElementById("message-delete-img");
-            deleteMessage.innerText = "Le travail a été supprimé correctement";
-            deleteMessage.classList.remove("hidden");
-            deleteMessage.classList.add("confirmation-message");
-            setTimeout(() => {
-                deleteMessage.classList.add("hidden");
-            }, 2000);
+            const success = await deleteWorks(workId);
+
+            if (success) {
+                worksContent.remove();
+
+                //confirmation message
+                const deleteMessage = document.getElementById("message-delete-img");
+                deleteMessage.innerText = "Le travail a été supprimé correctement";
+                deleteMessage.classList.remove("hidden");
+                deleteMessage.classList.add("confirmation-message");
+                setTimeout(() => {
+                    deleteMessage.classList.add("hidden");
+                }, 2000);
+            }
         });
     }
 }
@@ -293,7 +297,25 @@ async function deleteWorks(id) {
         },
     };
 
-    const response = await fetch(`http://localhost:5678/api/works/${id}`, deleteOptions);
-    const allWorks = await getWorks();
-    displayWorks(allWorks);
+    const deleteMessage = document.getElementById("message-delete-img");
+
+    try {
+        const response = await fetch(`http://localhost:5678/api/works/${id}`, deleteOptions);
+        if (response.ok) {
+            const allWorks = await getWorks();
+            displayWorks(allWorks);
+            return true;
+        } else {
+            deleteMessage.classList.remove("hidden");
+            deleteMessage.classList.add("error-message");
+            deleteMessage.innerText = "Error lors de la suppresion de l'image";
+            return false;
+        }
+    } catch (error) {
+        console.error("Erreur de connexion:", error);
+        deleteMessage.classList.remove("hidden");
+        deleteMessage.classList.add("error-message");
+        deleteMessage.innerText = "Erreur: Veuillez réessayer plus tard.";
+        return false;
+    }
 }
