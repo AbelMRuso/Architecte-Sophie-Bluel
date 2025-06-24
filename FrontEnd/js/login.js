@@ -32,7 +32,7 @@ formSubmit.addEventListener("submit", (event) => {
                 location.replace("index.html");
             } else {
                 messageError.classList.remove("hidden");
-                messageError.textContent = "Erreur: email ou mot de passe incorrect";
+                messageError.textContent = "Erreur dans l’identifiant ou le mot de passe";
             }
         } catch (error) {
             console.error("Erreur de connexion:", error);

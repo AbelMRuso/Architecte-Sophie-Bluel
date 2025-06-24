@@ -45,6 +45,7 @@ closeModal.addEventListener("click", () => {
 overlay.addEventListener("click", (event) => {
     if (event.target === overlay) {
         overlay.classList.add("hidden");
+        resetForm();
     }
 });
 
