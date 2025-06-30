@@ -144,10 +144,12 @@ inputFile.addEventListener("change", checkForm);
 
 function checkForm() {
     if (inputFile.files.length > 0 && formTitle.value.trim() !== "" && ["1", "2", "3"].includes(categoryFormModal.value)) {
+        buttonSubmit.disabled = false;
         buttonSubmit.classList.remove("valider");
         buttonSubmit.classList.add("valider-green");
         messageError.classList.add("hidden");
     } else {
+        buttonSubmit.disabled = true;
         buttonSubmit.classList.add("valider");
         buttonSubmit.classList.remove("valider-green");
     }
@@ -225,7 +227,7 @@ async function displayFormModal() {
     currentView = "form";
 }
 
-//Función que recoge las categorías de la API, y las inserta en el section de la modal en forma de option
+//Function that collects the API categories, and inserts them in the modal section in the form of an option.
 async function categoriesList() {
     const categoriesForm = await getCategories();
 
