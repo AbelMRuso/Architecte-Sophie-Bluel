@@ -23,7 +23,7 @@ const buttonSubmit = document.getElementById("button-valider");
 //Modal views
 let currentView = "gallery";
 
-//variable para evitar que las categorias se recargen en la modal si el usuario clica varias veces sobre la flecha
+// Prevents categories form reloading in the modal if the user clicks the arrow multiple times
 let categoriesLoaded = false;
 
 //modal is hidden by default
@@ -45,6 +45,7 @@ closeModal.addEventListener("click", () => {
 overlay.addEventListener("click", (event) => {
     if (event.target === overlay) {
         overlay.classList.add("hidden");
+        resetForm();
     }
 });
 
@@ -52,8 +53,6 @@ overlay.addEventListener("click", (event) => {
 buttonModal.addEventListener("click", () => {
     if (currentView === "gallery") {
         displayFormModal();
-    } else {
-        // ¿NO DEBERÍAMOS AÑADIR AQUÍ LA VALIDACIÓN DEL FORMULARIO?
     }
 });
 
@@ -63,7 +62,7 @@ backButton.addEventListener("click", () => {
     resetForm();
 });
 
-/* INTEGRACIÓN CATEGORIAS API EN FORMULARIO DE LA MODAL */
+/* // Category API integration in the modal form */
 categoryFormModal.addEventListener("click", () => {
     if (!categoriesLoaded) {
         categoriesList();
@@ -71,25 +70,7 @@ categoryFormModal.addEventListener("click", () => {
     }
 });
 
-//Función que conecta con la api
-async function initModalForm(formOptionsModal) {
-    const token = localStorage.getItem("token");
-
-    formOptionsModal.headers = {
-        Authorization: `Bearer ${token}`,
-    };
-
-    const response = await fetch("http://localhost:5678/api/works", formOptionsModal);
-    const data = await response.json();
-
-    if (response.ok) {
-        displayWorks(data);
-        formModal.reset();
-        resetForm();
-    }
-}
-
-//MOSTRAR LA IMAGEN SELECCIONADA EN EL INPUT
+//Show image at form when is selected and loaded
 
 inputFile.addEventListener("change", () => {
     const file = inputFile.files[0];
@@ -103,14 +84,14 @@ inputFile.addEventListener("change", () => {
     const reader = new FileReader();
 
     reader.onload = function (e) {
-        preview.src = e.target.result; // Cargamos la imagen en el <img>
-        preview.classList.remove("hidden"); // Mostramos el div
+        preview.src = e.target.result; // load image at <img> id = preview
+        preview.classList.remove("hidden");
     };
 
-    reader.readAsDataURL(file); // Leemos el archivo como URL de imagen
+    reader.readAsDataURL(file); // file reading as a URL
 });
 
-//COMPORTAMIENTO DE LA PÁGINA AL HACER SUBMIT EN EL FORMULARIO
+//Page behaviour when submitting te form
 formModal.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -124,24 +105,26 @@ formModal.addEventListener("submit", (event) => {
         return;
     }
 
+    //create a formData with the data we want to retrieve from the form to add it to the body of the configuration object
     const formData = new FormData();
 
     formData.append("image", formImg);
     formData.append("title", formTitleValue);
     formData.append("category", categoryValue);
 
-    //Objeto de configuración
+    //Configuration object
     const formOptionsModal = {
         method: "post",
         body: formData,
     };
-    initModalForm(formOptionsModal);
+    submitNewWork(formOptionsModal);
 });
 
-//función para reiniciar el formulario
+//function to form reset
 function resetForm() {
     preview.src = "";
     inputTitle.value = "";
+    inputFile.value = "";
     categoryFormModal.value = "";
     messageError.classList.add("hidden");
     preview.classList.add("hidden");
@@ -152,26 +135,28 @@ function resetForm() {
     buttonSubmit.classList.add("valider");
 }
 
-//hacer que el boton del formulario haga submit y cambie de color cuando los 3 campos se han completado
+//update the button style depending on whether the fields have been completed.
 formTitle.addEventListener("input", checkForm);
 categoryFormModal.addEventListener("change", checkForm);
 inputFile.addEventListener("change", checkForm);
 
+//********** FUNCTIONS ********/
+
 function checkForm() {
-    if (inputFile.files.length > 0 && formTitle.value.trim() !== "" && categoryFormModal.value !== "") {
+    if (inputFile.files.length > 0 && formTitle.value.trim() !== "" && ["1", "2", "3"].includes(categoryFormModal.value)) {
+        buttonSubmit.disabled = false;
         buttonSubmit.classList.remove("valider");
         buttonSubmit.classList.add("valider-green");
         messageError.classList.add("hidden");
     } else {
+        buttonSubmit.disabled = true;
         buttonSubmit.classList.add("valider");
         buttonSubmit.classList.remove("valider-green");
     }
 }
-//********** FUNCTIONS ********/
 
-//Función que recoge los datos de Works de la API, recorre su array y crea un elemento para cada uno de los objetos
+//Function that collects the Works data from the API, traverses its array and creates an element for each of the objects.
 async function modalWorks() {
-    //array con todos los trabajos
     let allWorks = await getWorks();
     const modalContent = document.getElementById("modal-images");
     modalContent.innerHTML = "";
@@ -189,12 +174,24 @@ async function modalWorks() {
         modalContent.appendChild(worksContent);
         worksContent.appendChild(deleteImg);
 
-        deleteImg.addEventListener("click", () => {
-            //TRABAJANDO EN BORRAR LOS TRABAJOS DE LOS COJONES
+        //event to delete img
+        deleteImg.addEventListener("click", async () => {
             const workId = allWorks[i].id;
-            worksContent.dataset.id = workId; //asignamos un id a cada figure
-            deleteWorks(workId);
-            worksContent.remove();
+
+            const success = await deleteWorks(workId);
+
+            if (success) {
+                worksContent.remove();
+
+                //confirmation message
+                const deleteMessage = document.getElementById("message-delete-img");
+                deleteMessage.innerText = "Le travail a été supprimé correctement";
+                deleteMessage.classList.remove("hidden");
+                deleteMessage.classList.add("confirmation-message");
+                setTimeout(() => {
+                    deleteMessage.classList.add("hidden");
+                }, 2000);
+            }
         });
     }
 }
@@ -230,9 +227,16 @@ async function displayFormModal() {
     currentView = "form";
 }
 
-//Función que recoge las categorías de la API, y las inserta en el section de la modal en forma de option
+//Function that collects the API categories, and inserts them in the modal section in the form of an option.
 async function categoriesList() {
     const categoriesForm = await getCategories();
+
+    const selectCategory = document.createElement("option");
+    selectCategory.innerText = "<-- Selectionnez une categorie -->";
+    selectCategory.value = 0;
+    selectCategory.selected = true;
+    categoryFormModal.appendChild(selectCategory);
+
     for (let i = 0; i < categoriesForm.length; i++) {
         const categoriesOption = categoriesForm[i].name;
         const categoriesId = categoriesForm[i].id;
@@ -245,7 +249,45 @@ async function categoriesList() {
     }
 }
 
-//peticion API borrar trabajos
+// Fetches updated works from the API with token validation.
+// If the response is successful, updates the UI using displayWorks().
+async function submitNewWork(formOptionsModal) {
+    const token = localStorage.getItem("token");
+
+    formOptionsModal.headers = {
+        Authorization: `Bearer ${token}`,
+    };
+    try {
+        const response = await fetch("http://localhost:5678/api/works", formOptionsModal);
+
+        if (response.ok) {
+            let allWorks = await getWorks();
+            displayWorks(allWorks);
+            resetForm();
+            messageError.classList.remove("hidden");
+            messageError.classList.add("confirmation-message");
+            messageError.innerText = "Le travail a été enregistré correctement";
+            setTimeout(() => {
+                messageError.classList.add("hidden");
+            }, 3000);
+        } else {
+            messageError.innerText = "Erreur lors de l'envoi du formulaire.";
+            messageError.classList.remove("hidden");
+            setTimeout(() => {
+                messageError.classList.add("hidden");
+            }, 3000);
+        }
+    } catch (error) {
+        console.error("Erreur lors de l'envoi du formulaire :", error);
+        messageError.classList.remove("hidden");
+        messageError.innerText = "Une erreur est survenue. Veuillez réessayer.";
+        setTimeout(() => {
+            messageError.classList.add("hidden");
+        }, 3000);
+    }
+}
+
+//Function to delete works
 
 async function deleteWorks(id) {
     const token = localStorage.getItem("token");
@@ -257,5 +299,25 @@ async function deleteWorks(id) {
         },
     };
 
-    const response = await fetch(`http://localhost:5678/api/works/${id}`, deleteOptions);
+    const deleteMessage = document.getElementById("message-delete-img");
+
+    try {
+        const response = await fetch(`http://localhost:5678/api/works/${id}`, deleteOptions);
+        if (response.ok) {
+            const allWorks = await getWorks();
+            displayWorks(allWorks);
+            return true;
+        } else {
+            deleteMessage.classList.remove("hidden");
+            deleteMessage.classList.add("error-message");
+            deleteMessage.innerText = "Error lors de la suppresion de l'image";
+            return false;
+        }
+    } catch (error) {
+        console.error("Erreur de connexion:", error);
+        deleteMessage.classList.remove("hidden");
+        deleteMessage.classList.add("error-message");
+        deleteMessage.innerText = "Erreur: Veuillez réessayer plus tard.";
+        return false;
+    }
 }

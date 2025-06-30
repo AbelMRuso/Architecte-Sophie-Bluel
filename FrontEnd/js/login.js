@@ -1,7 +1,6 @@
-//form data recovery
-
 //We capture the form-login element, listen for the submit event, and prevent its default behavior
 const formSubmit = document.getElementById("form-login");
+
 formSubmit.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -30,18 +29,19 @@ formSubmit.addEventListener("submit", (event) => {
             if (response.ok) {
                 const stockToken = data.token;
                 localStorage.setItem("token", stockToken);
-                location.replace("http://127.0.0.1:5500/FrontEnd/index.html");
+                location.replace("index.html");
             } else {
                 messageError.classList.remove("hidden");
-                messageError.textContent = "Erreur: email ou mot de passe incorrect";
+                messageError.textContent = "Erreur dans l’identifiant ou le mot de passe";
             }
         } catch (error) {
             console.error("Erreur de connexion:", error);
-            messageError.textContent = "Erreur: impossible de contacter le serveur. Veuillez réessayer plus tard.";
+            messageError.textContent = "Erreur: Veuillez réessayer plus tard.";
             messageError.classList.remove("hidden");
         }
     }
     loginForm();
 });
 
-//|sophie.bluel@test.tld|S0phie|
+//mail: sophie.bluel@test.tld
+//password: S0phie

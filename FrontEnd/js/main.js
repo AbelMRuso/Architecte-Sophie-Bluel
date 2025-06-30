@@ -1,5 +1,3 @@
-// ***** Function to retrieve the "work" elements from the server and insert them into the DOM.
-
 const galleryContent = document.querySelector(".gallery");
 
 //Function that will add the "works" elements to the DOM.
@@ -12,7 +10,6 @@ function displayWorks(works) {
         const img = works[i].imageUrl;
         const title = works[i].title;
 
-        //Creation of the figure elements which will contain the following elements: img and figcaption.
         const worksContent = document.createElement("figure");
         const imgContent = document.createElement("img");
         const titleContent = document.createElement("figcaption");
@@ -21,11 +18,9 @@ function displayWorks(works) {
         imgContent.src = img;
         titleContent.innerText = title;
 
-        //Integration of the images and titles into their parent container "worksContent" (figure).
         worksContent.appendChild(imgContent);
         worksContent.appendChild(titleContent);
 
-        //Integration of worksContent into its parent element "galleryContent" (div gallery).
         galleryContent.appendChild(worksContent);
     }
 }
@@ -43,9 +38,9 @@ logButton.addEventListener("click", (event) => {
     if (localStorage.getItem("token")) {
         localStorage.removeItem("token");
         logButton.innerText = "login";
-        location.replace("http://127.0.0.1:5500/FrontEnd/index.html");
+        location.reload();
     } else {
-        location.assign("http://127.0.0.1:5500/FrontEnd/login.html");
+        location.assign("login.html");
     }
 });
 
